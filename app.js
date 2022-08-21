@@ -1802,3 +1802,36 @@ function acmTeam(topic) {
 }
 
 console.log(acmTeam(["10101", "11100", "11010", "00101"]));
+//=========================================
+console.log("#".repeat(30));
+// [85]
+function encryption(s) {
+  const strLength = s.length;
+  const sqrt = Math.sqrt(strLength);
+  let rows = Math.floor(sqrt);
+  const colomuns = Math.ceil(sqrt);
+  rows = rows * colomuns < strLength ? colomuns : rows;
+
+  const grid = [];
+  for (let i = 0; i < rows; i++) {
+    const str = s.trim().slice(i * colomuns, colomuns + i * colomuns);
+    grid.push(str);
+  }
+
+  let result = "";
+  let counter = 0;
+  const currIndex = grid.length - 1;
+  while (counter !== colomuns) {
+    for (let i = 0; i < grid.length; i++) {
+      if (i === currIndex) {
+        result += (grid[i][counter] || "") + " ";
+      } else {
+        result += grid[i][counter] || "";
+      }
+    }
+    counter++;
+  }
+  return result;
+}
+
+console.log(encryption("chillout"));
