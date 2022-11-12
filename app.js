@@ -1835,3 +1835,21 @@ function encryption(s) {
 }
 
 console.log(encryption("chillout"));
+//=========================================
+console.log("#".repeat(30));
+// [86]
+function taumBday(b, w, bc, wc, z) {
+  const gifts = BigInt(b) + BigInt(w);
+
+  const whiteGifts = gifts * BigInt(wc) + BigInt(b) * BigInt(z);
+  const blackGifts = gifts * BigInt(bc) + BigInt(w) * BigInt(z);
+
+  let min = BigInt(b) * BigInt(bc) + BigInt(w) * BigInt(wc);
+
+  blackGifts < min && (min = blackGifts);
+  whiteGifts < min && (min = whiteGifts);
+
+  return min;
+}
+
+console.log(taumBday(742407782, 90529439, 847666641, 8651519, 821801924));
