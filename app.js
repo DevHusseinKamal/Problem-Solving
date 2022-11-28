@@ -1853,3 +1853,222 @@ function taumBday(b, w, bc, wc, z) {
 }
 
 console.log(taumBday(742407782, 90529439, 847666641, 8651519, 821801924));
+//=========================================
+console.log("#".repeat(30));
+// [87]
+function kaprekarNumbers(p, q) {
+  const result = [];
+  for (let i = p; i <= q; i++) {
+    const squaredInt = (i ** 2).toString();
+
+    const center = squaredInt.length / 2;
+    const leftInt = +squaredInt.slice(0, center);
+    const rightInt = +squaredInt.slice(center);
+    const concatedInt = leftInt + rightInt;
+
+    if (concatedInt === i) {
+      result.push(i);
+    }
+  }
+
+  if (result.length === 0) {
+    return "INVALID RANGE";
+  }
+
+  return result.join(" ");
+}
+
+console.log(kaprekarNumbers(1, 100));
+//=========================================
+console.log("#".repeat(30));
+// [88]
+function beautifulTriplets(d, arr) {
+  let count = arr[0];
+  let max = arr[arr.length - 1];
+  let result = 0;
+
+  let { values } = new Array(arr.length).fill(0).reduce(
+    (target, item, index) => {
+      target["values"][arr[index]] = target["values"][arr[index]]
+        ? (target["values"][arr[index]] += 1)
+        : 1;
+
+      return target;
+    },
+    { values: {} }
+  );
+
+  while (count <= max) {
+    values[count] &&
+      values[count + d] &&
+      values[count + d * 2] &&
+      (result += Math.max(
+        values[count],
+        values[count + d],
+        values[count + d * 2]
+      ));
+
+    count++;
+  }
+
+  return result;
+}
+//=========================================
+console.log("#".repeat(30));
+// [89]
+function minimumDistances(a) {
+  const distances = {};
+  let min = Number.MAX_SAFE_INTEGER;
+
+  for (let i = 0; i < a.length; i++) {
+    if (distances[a[i]]) {
+      distances[a[i]] = {
+        value: i - +distances[a[i]].value,
+        points: distances[a[i]].points + 1,
+      };
+      min = distances[a[i]].value < min ? distances[a[i]].value : min;
+    } else {
+      distances[a[i]] = { value: i, points: 1 };
+    }
+  }
+
+  const points = Object.values(distances).map((distance) => {
+    return distance.points;
+  });
+
+  if (points.every((point) => point === 1)) {
+    min = -1;
+  }
+
+  return min;
+}
+
+console.log(minimumDistances([1, 2, 3, 4, 10]));
+//=========================================
+console.log("#".repeat(30));
+// [90]
+function howManyGames(p, d, m, s) {
+  if (s < p) {
+    return 0;
+  }
+  let remainingP = p;
+  const prices = [];
+  while (remainingP >= m) {
+    prices.push(remainingP);
+    remainingP -= d;
+  }
+
+  let counter = prices.length;
+  const amount = prices.reduce((acc, cur) => acc + cur, 0);
+  let remainingS = s - amount;
+  if (remainingS < 0) {
+    return 1;
+  }
+  while (remainingS >= m) {
+    if (remainingS - m >= m) {
+      remainingS = remainingS - m * 2;
+      counter += 2;
+    } else {
+      remainingS -= m;
+      counter += 1;
+    }
+  }
+
+  return counter;
+}
+
+console.log(howManyGames(100, 19, 1, 180));
+//=========================================
+console.log("#".repeat(30));
+// [91]
+function timeInWords(h, m) {
+  const times = [
+    { 0: "o' clock" },
+    { 1: "one" },
+    { 2: "two" },
+    { 3: "three" },
+    { 4: "four" },
+    { 5: "five" },
+    { 6: "six" },
+    { 7: "seven" },
+    { 8: "eight" },
+    { 9: "nine" },
+    { 10: "ten" },
+    { 11: "eleven" },
+    { 12: "twelve" },
+    { 13: "thirteen" },
+    { 14: "fourteen" },
+    { 15: "quarter past" },
+    { 16: "sixteen" },
+    { 17: "seventeen" },
+    { 18: "eighteen" },
+    { 19: "nineteen" },
+    { 20: "twenty" },
+    { 30: "half past" },
+    { 45: "quarter to" },
+  ];
+
+  let hourIndex = times.findIndex((time) => time[h]);
+  let hour = times[hourIndex][h];
+
+  const minIndex = times.findIndex((time) => time[m]);
+  let mins = minIndex > -1 ? times[minIndex][m] : "";
+  if (minIndex === -1) {
+    const remainingMins = m > 30 && m !== 45 ? 60 - m : m;
+
+    const index = times.findIndex((time) => time[remainingMins]);
+    if (index !== -1) {
+      mins = times[index][remainingMins];
+    } else {
+      const leftNum = +(remainingMins.toString()[0] + 0);
+      const leftTime = times.find((time) => time[leftNum])[leftNum];
+
+      const rightNum = +remainingMins.toString()[1];
+      const rightTime = times.find((time) => time[rightNum])[rightNum];
+
+      mins = leftTime + " " + rightTime;
+    }
+  }
+
+  if (m > 30) {
+    hourIndex += 1;
+    hour = times[hourIndex][h + 1];
+  }
+
+  if (m === 0) {
+    return hour + " " + mins;
+  } else if (m === 1) {
+    return mins + " minute past " + hour;
+  } else if (m < 30 && m !== 15) {
+    return mins + " minutes past " + hour;
+  } else if (m === 15 || m === 30 || m === 45) {
+    return mins + " " + hour;
+  } else if (m > 30 && m !== 59) {
+    return mins + " minutes to " + hour;
+  } else {
+    return mins + " minute to " + hour;
+  }
+}
+
+console.log(timeInWords(6, 59));
+//=========================================
+console.log("#".repeat(30));
+// [92]
+function chocolateFeast(n, c, m) {
+  let count = 0;
+  let value = Math.floor(n / c);
+
+  while (true) {
+    let focus = value + (count % m);
+
+    count += value;
+
+    if (focus < m) break;
+
+    value = Math.floor(focus / m);
+  }
+
+  return count;
+}
+
+console.log(chocolateFeast(6, 2, 2));
