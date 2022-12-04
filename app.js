@@ -2072,3 +2072,94 @@ function chocolateFeast(n, c, m) {
 }
 
 console.log(chocolateFeast(6, 2, 2));
+//=========================================
+console.log("#".repeat(30));
+// [93]
+function workbook(n, k, arr) {
+  let result = 0;
+  let page = 1;
+
+  for (let i of Array.from({ length: n }, (value, index) => index)) {
+    const problems = arr[i];
+
+    for (let j of Array.from(
+      { length: problems },
+      (value, index) => index + 1
+    )) {
+      j === page && result++;
+
+      j !== problems && !(j % k) && page++;
+    }
+
+    page++;
+  }
+
+  return result;
+}
+
+console.log(workbook(5, 3, [4, 2, 6, 1, 10]));
+//=========================================
+console.log("#".repeat(30));
+// [94]
+function camelcase(s) {
+  let result = 1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i].charCodeAt(0) <= 90) {
+      result++;
+    }
+  }
+
+  return result;
+}
+
+console.log(camelcase("oneTwoThree"));
+//=========================================
+console.log("#".repeat(30));
+// [95]
+function fairRations(B) {
+  let result = 0;
+  const copiedB = [...B];
+
+  for (let i = 0; i < copiedB.length; i++) {
+    const numIsEven = copiedB[i] % 2 === 0;
+    const isLastIndex = i === copiedB.length - 1;
+
+    if (!numIsEven && !isLastIndex) {
+      copiedB[i] = copiedB[i] + 1;
+      copiedB[i + 1] = copiedB[i + 1] + 1;
+      result += 2;
+    } else if (!numIsEven && isLastIndex) {
+      copiedB[i] = copiedB[i] + 1;
+      copiedB[i - 1] = copiedB[i - 1] + 1;
+      result += 2;
+    }
+  }
+
+  const loavesIsEven = copiedB.every((loave) => loave % 2 === 0);
+  if (!loavesIsEven) {
+    return "NO";
+  }
+
+  return result;
+}
+
+console.log(fairRations([2, 3, 4, 5, 6]));
+//=========================================
+console.log("#".repeat(30));
+// [96]
+function cavityMap(grid) {
+  const copiedGrid = [...grid];
+  for (let i = 1; i < copiedGrid.length - 1; i++) {
+    for (let j = 1; j < copiedGrid[i].length - 1; j++) {
+      if (+copiedGrid[i][j] > +copiedGrid[i - 1][j] + +copiedGrid[i + 1][j]) {
+        const strArr = copiedGrid[i].split("");
+        strArr[j] = "X";
+        copiedGrid[i] = strArr.join("");
+      }
+    }
+  }
+
+  return copiedGrid;
+}
+
+console.log(cavityMap(["1112", "1912", "1892", "1234"]));
