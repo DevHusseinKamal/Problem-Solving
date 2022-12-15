@@ -2191,3 +2191,19 @@ function happyLadybugs(b) {
 }
 
 console.log(happyLadybugs("LL_ZZZZ_Z_L_ZZ"));
+//=========================================
+console.log("#".repeat(30));
+// [98]
+function strangeCounter(t) {
+  let end = 3,
+    size = 3,
+    cycle = 1;
+  while (end < t) {
+    size *= 2;
+    end += size;
+    cycle += 1;
+  }
+  return end - t + 1;
+}
+
+console.log(strangeCounter(15));
