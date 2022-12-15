@@ -2163,3 +2163,31 @@ function cavityMap(grid) {
 }
 
 console.log(cavityMap(["1112", "1912", "1892", "1234"]));
+//=========================================
+console.log("#".repeat(30));
+// [97]
+function happyLadybugs(b) {
+  const arrOfB = b.split("");
+  const isEmpty = arrOfB.every((e) => e === "_");
+  const isExist = arrOfB.findIndex((e) => e === "_") === -1;
+  if (isEmpty) return "YES";
+  if (isExist) return "NO";
+
+  const data = {};
+  for (let i = 0; i < arrOfB.length; i++) {
+    const currentElment = arrOfB[i];
+    if (currentElment === "_") continue;
+    if (data[currentElment]) {
+      data[currentElment] = data[currentElment] + 1;
+    } else {
+      data[currentElment] = 1;
+    }
+  }
+
+  const dataValues = Object.values(data);
+  const minValue = Math.min(...dataValues);
+
+  return minValue === 2 ? "YES" : "NO";
+}
+
+console.log(happyLadybugs("LL_ZZZZ_Z_L_ZZ"));
