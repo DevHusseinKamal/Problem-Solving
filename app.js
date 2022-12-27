@@ -2207,3 +2207,64 @@ function strangeCounter(t) {
 }
 
 console.log(strangeCounter(15));
+//=========================================
+console.log("#".repeat(30));
+// [99]
+function bigSorting(unsorted) {
+  if (unsorted.length < 2) {
+    return unsorted;
+  }
+  if (unsorted.length === 2) {
+    return unsorted[0] > unsorted[1] ? [unsorted[1], unsorted[0]] : unsorted;
+  }
+  const middle = Math.floor(unsorted.length / 2);
+  const leftArray = unsorted.slice(0, middle).map((elem) => BigInt(elem));
+  const rightArray = unsorted.slice(middle).map((elem) => BigInt(elem));
+
+  const leftSortedArray = bigSorting(leftArray);
+  const rightSortedArray = bigSorting(rightArray);
+
+  const mergedArr = [];
+  let leftArrIndex = 0;
+  let rightArrIndex = 0;
+  while (
+    leftArrIndex < leftSortedArray.length ||
+    rightArrIndex < rightSortedArray.length
+  ) {
+    if (
+      leftArrIndex >= leftSortedArray.length ||
+      leftSortedArray[leftArrIndex] > rightSortedArray[rightArrIndex]
+    ) {
+      mergedArr.push(rightSortedArray[rightArrIndex]);
+      rightArrIndex++;
+    } else {
+      mergedArr.push(leftSortedArray[leftArrIndex]);
+      leftArrIndex++;
+    }
+  }
+
+  return mergedArr;
+}
+
+console.log(bigSorting(["1", "200", "150", "3"]));
+//=========================================
+console.log("#".repeat(30));
+// [100]
+function superReducedString(s) {
+  let copiedS = s;
+  let i = 0;
+  while (i < copiedS.length) {
+    if (copiedS[i] === copiedS[i + 1]) {
+      const leftStr = copiedS.slice(0, i);
+      const rightStr = copiedS.slice(i + 2);
+      copiedS = leftStr + rightStr;
+      i = 0;
+    } else {
+      i++;
+    }
+  }
+
+  return !copiedS ? "Empty String" : copiedS;
+}
+
+console.log(superReducedString("baab"));
