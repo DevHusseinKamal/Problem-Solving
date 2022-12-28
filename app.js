@@ -2268,3 +2268,20 @@ function superReducedString(s) {
 }
 
 console.log(superReducedString("baab"));
+//=========================================
+console.log("#".repeat(30));
+// [101]
+function insertionSort1(n, arr) {
+  const target = arr[n - 1];
+
+  while (arr[--n - 1] > target) {
+    arr[n] = arr[n - 1];
+
+    console.log(...arr);
+  }
+
+  arr[n] = target;
+  console.log(...arr);
+}
+
+console.log(insertionSort1(5, [2, 4, 6, 8, 3]));
