@@ -2284,4 +2284,4 @@ function insertionSort1(n, arr) {
   console.log(...arr);
 }
 
-console.log(insertionSort1(5, [2, 4, 6, 8, 3]));
+insertionSort1(5, [2, 4, 6, 8, 3]);
